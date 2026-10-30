@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SnipLink | Short links with click stats</title>
+    <meta name="description" content="Shorten any URL, choose your own alias, set an expiry date and watch the clicks come in.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+    <header class="top">
+        <span class="logo"><span class="logo-mark" aria-hidden="true">/</span>SnipLink</span>
+        <p class="tag">Short links. Real numbers.</p>
+    </header>
+
+    <div id="banner" class="banner" role="alert" hidden></div>
+
+    <section class="panel">
+        <h1>Paste a long link, get a short one.</h1>
+        <form id="create-form" novalidate>
+            <div class="field">
+                <label for="url">Destination URL</label>
+                <input id="url" name="url" type="text" inputmode="url" placeholder="https://example.com/a/very/long/page" autocomplete="off" required>
+            </div>
+            <div class="row">
+                <div class="field">
+                    <label for="alias">Custom alias <span class="opt">(optional)</span></label>
+                    <div class="alias-box">
+                        <span id="host-prefix" class="prefix">/</span>
+                        <input id="alias" name="alias" type="text" placeholder="my-link" maxlength="32" autocomplete="off">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="expiry">Expires</label>
+                    <select id="expiry" name="expiry">
+                        <option value="">Never</option>
+                        <option value="1">In 1 day</option>
+                        <option value="7">In 7 days</option>
+                        <option value="30">In 30 days</option>
+                        <option value="90">In 90 days</option>
+                    </select>
+                </div>
+            </div>
+            <p id="form-error" class="form-error" role="alert" hidden></p>
+            <button id="submit" class="btn" type="submit">Shorten link</button>
+        </form>
+
+        <div id="result" class="result" hidden aria-live="polite">
+            <span class="result-label">Your short link</span>
+            <div class="result-row">
+                <a id="result-link" class="result-link" target="_blank" rel="noopener"></a>
+                <button id="result-copy" class="btn small" type="button">Copy</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" aria-label="Totals">
+        <div class="stat"><span id="stat-links" class="stat-num">0</span><span class="stat-label">Links</span></div>
+        <div class="stat"><span id="stat-clicks" class="stat-num">0</span><span class="stat-label">Total clicks</span></div>
+    </section>
+
+    <section class="panel">
+        <div class="list-head">
+            <h2>Your links</h2>
+            <button id="refresh" class="btn ghost small" type="button">Refresh</button>
+        </div>
+        <p id="empty" class="empty">Links you create in this browser will appear here.</p>
+        <ul id="links" class="links"></ul>
+        <p class="note">Your list is kept in this browser. Clear your browser data and you lose the ability to manage these links, though they keep working.</p>
+    </section>
+
+    <footer>Built with Spring Boot, Spring Data JPA and vanilla JavaScript.</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
